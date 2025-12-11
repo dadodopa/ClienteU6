@@ -1,55 +1,87 @@
-// Array inicial de tareas
-        let tareas = [
-            { texto: "Estudiar JavaScript", realizada: false },
-            { texto: "Hacer la compra", realizada: true },
-            { texto: "Pasear al perro", realizada: false }
+// ================
+// Clase Tarea
+// ================
+class Tarea {
+    constructor(texto, realizada = false) {
+        this.texto = texto;
+        this.realizada = realizada;
+    }
+
+    toggle() {
+        this.realizada = !this.realizada;
+    }
+}
+
+// ================
+// Clase Gestor de Tareas
+// ================
+class GestorTareas {
+    constructor(listaTareas, inputNueva, btnAgregar) {
+        this.listaTareas = listaTareas;
+        this.inputNueva = inputNueva;
+        this.btnAgregar = btnAgregar;
+
+        this.tareas = [
+            new Tarea("Estudiar JavaScript", false),
+            new Tarea("Hacer la compra", true),
+            new Tarea("Pasear al perro", false)
         ];
 
-        const listaTareas = document.getElementById("listaTareas");
-        const inputNueva = document.getElementById("nuevaTarea");
-        const btnAgregar = document.getElementById("btnAgregar");
+        // Eventos
+        this.btnAgregar.addEventListener("click", () => this.agregarTarea());
+        this.mostrarTareas();
+    }
 
-        // Función para mostrar las tareas en pantalla
-        function mostrarTareas() {
-            listaTareas.innerHTML = ""; // Limpia el contenedor
+    // Mostrar tareas en pantalla
+    mostrarTareas() {
+        this.listaTareas.innerHTML = "";
 
-            tareas.forEach((tarea, index) => {
-                const divTarea = document.createElement("div");
-                divTarea.classList.add("tarea");
+        this.tareas.forEach((tarea) => {
+            const divTarea = document.createElement("div");
+            divTarea.classList.add("tarea");
 
-                const checkbox = document.createElement("input");
-                checkbox.type = "checkbox";
-                checkbox.checked = tarea.realizada;
-
-                const spanTexto = document.createElement("span");
-                spanTexto.textContent = tarea.texto;
-
-                // Añadimos la clase realizada si corresponde
-                if (tarea.realizada) {
-                    spanTexto.classList.add("realizada");
-                }
-
-                // Evento para cambiar estado de la tarea
-                checkbox.addEventListener("change", () => {
-                    tarea.realizada = checkbox.checked;
-                    mostrarTareas(); // Volvemos a pintar
-                });
-
-                divTarea.appendChild(checkbox);
-                divTarea.appendChild(spanTexto);
-                listaTareas.appendChild(divTarea);
+            // Checkbox
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.checked = tarea.realizada;
+            checkbox.addEventListener("change", () => {
+                tarea.toggle();
+                this.mostrarTareas();
             });
-        }
 
-        // Agregar nueva tarea
-        btnAgregar.addEventListener("click", () => {
-            const texto = inputNueva.value.trim();
-            if (texto === "") return;
+            const spanTexto = document.createElement("span");
+            spanTexto.textContent = tarea.texto;
+            if (tarea.realizada) spanTexto.classList.add("realizada");
 
-            tareas.push({ texto: texto, realizada: false });
-            inputNueva.value = "";
-            mostrarTareas();
+            divTarea.appendChild(checkbox);
+            divTarea.appendChild(spanTexto);
+
+            this.listaTareas.appendChild(divTarea);
         });
+    }
 
-        // Cargar lista inicial
-        mostrarTareas();
+    // Agregar una tarea
+    agregarTarea() {
+        const texto = this.inputNueva.value.trim();
+        if (texto === "") return;
+
+        this.tareas.push(new Tarea(texto));
+        this.inputNueva.value = "";
+        this.mostrarTareas();
+    }
+
+    // Eliminar una tarea
+    eliminarTarea(indice) {
+        this.tareas.splice(indice, 1);
+        this.mostrarTareas();
+    }
+}
+
+// ================
+// Inicialización
+// ================
+const gestor = new GestorTareas(
+    document.getElementById("listaTareas"),
+    document.getElementById("nuevaTarea"),
+    document.getElementById("btnAgregar")
+);
