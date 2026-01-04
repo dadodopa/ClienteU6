@@ -1,113 +1,213 @@
-//Creo el formulario  lo inserto en el body
-const formulario = document.createElement("form");
-document.body.appendChild(formulario);
 
-let arrayDatos=[];
 
-// Crear el label y el input : Nombre
-const labelNombre = document.createElement("label");
-labelNombre.textContent = "Nombre del disco: ";
-labelNombre.setAttribute("for", "nombre");
-arrayDatos.push(labelNombre);
+    // -----------------------------
+    //   ARRAY DE DISCOS
+    // -----------------------------
+    let discos = [];
 
-const inputNombre = document.createElement("input");
-inputNombre.type = "text";
-inputNombre.id = "nombre";
-inputNombre.name = "nombre";
-arrayDatos.push(inputNombre);
+    // -----------------------------
+    //   CREAR FORMULARIO DINÁMICO
+    // -----------------------------
 
-// Crear eel label y el input : Grupo
-const labelGrupo = document.createElement("label");
-labelGrupo.textContent = "Grupo de música o cantante: ";
-labelGrupo.setAttribute("for", "grupo");
-arrayDatos.push(labelGrupo);
+    const form = document.createElement("form");
+    document.body.appendChild(form);
 
-const inputGrupo = document.createElement("input");
-inputGrupo.type = "text";
-inputGrupo.id = "grupo";
-inputGrupo.name = "grupo";
-arrayDatos.push(inputGrupo);
+    function crearLabel(texto, forId) {
+        const label = document.createElement("label");
+        label.textContent = texto;
+        label.setAttribute("for", forId);
+        return label;
+    }
 
-// Crear el label y el input: Año
-const labelYear = document.createElement("label");
-labelYear.textContent = "Año de publicación: ";
-labelYear.setAttribute("for", "year");
-arrayDatos.push(labelYear);
+    function crearInputTexto(id) {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = id;
+        input.name = id;
+        return input;
+    }
 
-const inputYear = document.createElement("input");
-inputYear.type = "text";
-inputYear.id = "year";
-inputYear.name = "year";
-arrayDatos.push(inputYear);
+    function crearP() {
+        const p = document.createElement("p");
+        p.style.color = "red";
+        return p;
+    }
 
-//Crear label de tipo de música
-const labelTipo = document.createElement("label");
-labelTipo.textContent = "Tipo de música";
-labelTipo.setAttribute("for", "tipo");
-arrayDatos.push(labelTipo);
+    // Nombre
+    const labelNombre = crearLabel("Nombre del disco:", "nombre");
+    const inputNombre = crearInputTexto("nombre");
+    const infoNombre = crearP();
 
-//Creamos el select de tipo de musica
-const selectTipo = document.createElement("select");
-selectTipo.name = "tipo";
-selectTipo.id = "tipo";
+    // Grupo
+    const labelGrupo = crearLabel("Grupo/Cantante:", "grupo");
+    const inputGrupo = crearInputTexto("grupo");
+    const infoGrupo = crearP();
 
-//Creamos los option para el select
-const optRock = document.createElement("option");
-optRock.textContent = "Rock";
-optRock.value = "rock";
+    // Año
+    const labelYear = crearLabel("Año publicación:", "year");
+    const inputYear = crearInputTexto("year");
+    const infoYear = crearP();
 
-const optPop = document.createElement("option");
-optPop.textContent = "Pop";
-optPop.value = "pop";
+    // Tipo de música
+    const labelTipo = crearLabel("Tipo de música:", "tipo");
+    const selectTipo = document.createElement("select");
+    selectTipo.id = "tipo";
+    selectTipo.innerHTML = `
+        <option value="rock">Rock</option>
+        <option value="pop">Pop</option>
+        <option value="punk">Punk</option>
+        <option value="indie">Indie</option>
+    `;
 
-const optPunk = document.createElement("option");
-optPunk.textContent = "Punk";
-optPunk.value = "punk";
+    // Localización
+    const labelLocal = crearLabel("Localización:", "local");
+    const inputLocal = crearInputTexto("local");
+    inputLocal.readOnly = true;
+    inputLocal.value = "N/A";
 
-const optIndie = document.createElement("option");
-optIndie.textContent = "Indie";
-optIndie.value = "indie";
+    // Préstamo
+    const labelPrestamo = crearLabel("Préstamo:", "prestamo");
+    const inputPrestamo = crearInputTexto("prestamo");
+    inputPrestamo.readOnly = true;
+    inputPrestamo.value = "false";
 
-//Añadimos los option al select
-selectTipo.appendChild(optRock);
-selectTipo.appendChild(optPop);
-selectTipo.appendChild(optPunk);
-selectTipo.appendChild(optIndie);
-arrayDatos.push(selectTipo);
+    // Botón
+    const boton = document.createElement("button");
+    boton.type = "button";
+    boton.textContent = "Añadir disco";
 
-//Creamos el label y el input de Localización
-const labelLocal = document.createElement("label");
-labelLocal.setAttribute("for", "local");
-labelLocal.textContent("Localización: ");
-arrayDatos.push(labelLocal);
+    // Añadir todo al form
+    [
+        labelNombre, inputNombre, infoNombre,
+        labelGrupo, inputGrupo, infoGrupo,
+        labelYear, inputYear, infoYear,
+        labelTipo, selectTipo,
+        labelLocal, inputLocal,
+        labelPrestamo, inputPrestamo,
+        boton
+    ].forEach(el => form.appendChild(el));
 
-const inputLocal = document.createElement("input");
-inputLocal.type = "text";
-inputLocal.readOnly = true;
-arrayDatos.push(inputLocal);
+    // -----------------------------
+    //        VALIDACIONES
+    // -----------------------------
 
-//Creamos el label y el input de Prestamo
-const labelPrestamo = document.createElement("label");
-labelPrestamo.textContent="Prestamo: ";
-labelPrestamo.setAttribute("for", "prestamo");
-arrayDatos.push(labelPrestamo);
+    const MAXCADENA = 30;
 
-const inputPrestamo = document.createElement("input");
-inputPrestamo.value="false";
-inputPrestamo.type="text";
-inputPrestamo.name="prestamo";
-inputPrestamo.id="prestamo";
-inputPrestamo.readOnly=true;
-arrayDatos.push(inputPrestamo);
+    function validarTexto(campo, max, input, salida) {
+        let value = input.value.trim();
 
-//Creamos el boton para enviar el formulario
-const boton = document.createElement("input");
-boton.type="button";
-boton.id="enviar";
-boton.value="Enviar";
-arrayDatos.push(boton)
+        if (value.length === 0) {
+            salida.textContent = `El campo '${campo}' está vacío.`;
+            return false;
+        }
+        if (value.length > max) {
+            salida.textContent = `El campo '${campo}' no puede superar ${max} caracteres.`;
+            return false;
+        }
 
-//Añadimos todos los inputs y los label al form
-arrayDatos.forEach(element => {
-    formulario.appendChild(element);
-});
+        salida.textContent = "";
+        return true;
+    }
+
+    function validarYear(input, salida) {
+        let valor = input.value.trim();
+
+        if (valor === "") {
+            salida.textContent = "El año está vacío.";
+            return false;
+        }
+        if (isNaN(Number(valor))) {
+            salida.textContent = "Debe ser un número.";
+            return false;
+        }
+        if (valor.length !== 4) {
+            salida.textContent = "Debe tener 4 dígitos.";
+            return false;
+        }
+
+        salida.textContent = "";
+        return true;
+    }
+
+    // -----------------------------
+    //    CREAR TABLA DINÁMICA
+    // -----------------------------
+
+    let tabla = null;
+
+    function actualizarTabla(ultimoDisco) {
+
+        if (tabla) tabla.remove();
+
+        tabla = document.createElement("table");
+        tabla.border = "1";
+        tabla.style.marginTop = "20px";
+        tabla.style.borderCollapse = "collapse";
+        tabla.style.width = "600px";
+
+        const header = document.createElement("tr");
+        header.innerHTML = `
+            <th>Nombre</th>
+            <th>Grupo</th>
+            <th>Año</th>
+            <th>Tipo</th>
+        `;
+        tabla.appendChild(header);
+
+        // Ordenar discos alfabéticamente (por nombre)
+        discos.sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+        discos.forEach(disco => {
+            const fila = document.createElement("tr");
+
+            fila.innerHTML = `
+                <td>${disco.nombre}</td>
+                <td>${disco.grupo}</td>
+                <td>${disco.year}</td>
+                <td>${disco.tipo}</td>
+            `;
+
+            // Resaltar el último disco añadido
+            if (disco === ultimoDisco) {
+                fila.style.backgroundColor = "yellow";
+                fila.style.fontWeight = "bold";
+            }
+
+            tabla.appendChild(fila);
+        });
+
+        document.body.appendChild(tabla);
+    }
+
+    // -----------------------------
+    //       EVENTO BOTÓN
+    // -----------------------------
+
+    boton.addEventListener("click", () => {
+
+        let okNombre = validarTexto("nombre", MAXCADENA, inputNombre, infoNombre);
+        let okGrupo = validarTexto("grupo", MAXCADENA, inputGrupo, infoGrupo);
+        let okYear = validarYear(inputYear, infoYear);
+
+        if (!okNombre || !okGrupo || !okYear) return;
+
+        // Crear objeto disco
+        const nuevoDisco = {
+            nombre: inputNombre.value.trim(),
+            grupo: inputGrupo.value.trim(),
+            year: inputYear.value.trim(),
+            tipo: selectTipo.value
+        };
+
+        discos.push(nuevoDisco);
+
+        actualizarTabla(nuevoDisco);
+
+        // Vaciar formulario
+        inputNombre.value = "";
+        inputGrupo.value = "";
+        inputYear.value = "";
+        selectTipo.value = "rock";
+    });
+
+
