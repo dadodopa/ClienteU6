@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Analizador de página</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+    #resultado, #resultadoFrame {
+        margin-top: 20px;
+        padding: 10px;
+        background: #f3f3f3;
+        border-radius: 8px;
+    }
+    iframe {
+        width: 100%;
+        height: 300px;
+        border: 1px solid #333;
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+
+<h1>Analizador de elementos HTML</h1>
+
+<p>Este es el primer párrafo de ejemplo.</p>
+<p>Este es el segundo párrafo, que debe mostrarse en los resultados.</p>
+
+<a href="https://example.com">Primer enlace</a>
+<a href="https://wikipedia.org/wiki/Municipio">Enlace a municipio</a>
+<a href="https://test.com">Otro enlace</a>
+<a href="https://midominio.com/wiki/Municipio">Otro municipio</a>
+
+<hr>
+
+<h2>Análisis de esta página</h2>
+<button onclick="analizarPagina(document, 'resultado')">Analizar esta página</button>
+
+<div id="resultado"></div>
+
+<hr>
+
+<h2>Cargar y analizar otra página (misma carpeta)</h2>
+<input type="file" id="selectorArchivo" accept=".html,.htm">
+<br>
+<iframe id="frame"></iframe>
+
+<button onclick="analizarIframe()">Analizar página cargada en el iframe</button>
+
+<div id="resultadoFrame"></div>
+
+<script>
+/* -------------------- FUNCIÓN GENERAL DE ANÁLISIS -------------------- */
+function analizarPagina(doc, contenedorId) {
+    const contenedor = document.getElementById(contenedorId);
+
+    let parrafos = doc.getElementsByTagName("p");
+    let enlaces = doc.getElementsByTagName("a");
+
+    // Mostrar textos de <p> en la consola
+    console.log("Textos de todos los <p>:");
+    for (let p of parrafos) {
+        console.log(p.textContent);
+    }
+
+    // Contar enlaces a /wiki/Municipio
+    let enlacesMunicipio = 0;
+    for (let a of enlaces) {
+        if (a.href.includes("/wiki/Municipio")) {
+            enlacesMunicipio++;
+        }
+    }
+
+    // Enlaces en el primer párrafo
+    let enlacesPrimerParrafo = parrafos[0].getElementsByTagName("a").length;
+
+    // Crear HTML para el resultado
+    contenedor.innerHTML = `
+        <h3>Resultados:</h3>
+        <p><b>Número de párrafos:</b> ${parrafos.length}</p>
+        <p><b>Texto del 2º párrafo:</b> ${parrafos[1]?.textContent || "(No existe)"}</p>
+        <p><b>Número de enlaces:</b> ${enlaces.length}</p>
+        <p><b>Dirección del primer enlace:</b> ${enlaces[0]?.href || "(No existe)"}</p>
+        <p><b>Dirección del penúltimo enlace:</b> ${enlaces[enlaces.length - 2]?.href || "(No existe)"}</p>
+        <p><b>Enlaces que apuntan a /wiki/Municipio:</b> ${enlacesMunicipio}</p>
+        <p><b>Enlaces del primer párrafo:</b> ${enlacesPrimerParrafo}</p>
+    `;
+}
+
+/* -------------------- CARGAR ARCHIVO EN EL IFRAME -------------------- */
+document.getElementById("selectorArchivo").addEventListener("change", function () {
+    const archivo = this.files[0];
+    if (!archivo) return;
+
+    const iframe = document.getElementById("frame");
+    iframe.src = archivo.name;  // Funciona solo si está en la misma carpeta que la página principal
+});
+
+/* -------------------- ANALIZAR CONTENIDO DEL IFRAME -------------------- */
+function analizarIframe() {
+    const iframe = document.getElementById("frame");
+    const doc = iframe.contentDocument;
+
+    if (!doc) {
+        alert("No se pudo acceder al documento del iframe.");
+        return;
+    }
+
+    analizarPagina(doc, "resultadoFrame");
+}
+</script>
+
+</body>
+</html>
