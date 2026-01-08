@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <style>
+        form {
+            border: solid 1px lightgray;
+            padding: 30px;
+            padding-top: 0px;
+            width: 400px;
+            margin: 5px;
+        }
+    </style>
+    <body>
+        <form action="">
+            <h2>Crear edificio</h2>
+            <hr />
+            <table>
+                <tr>
+                    <td><label for="direccionEdificio">Direccion:</label></td>
+                    <td>
+                        <input
+                            type="text"
+                            name="direccion"
+                            id="direccionEdificio"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="plantasEdificio">Número de plantas: </label>
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="plantas"
+                            id="plantasEdificio"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="puertasEdificio">Número de puertas: </label>
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="puertas"
+                            id="puertasEdificio"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="crearEdificio">Crear</button></td>
+                </tr>
+            </table>
+        </form>
+        <form action="">
+            <h2>Cambiar propietario</h2>
+            <hr />
+            <p>Seleciona el edificio:</p>
+            <div class="listaEdificios"></div>
+            <h3>Información a añadir</h3>
+            <table>
+                <tr>
+                    <td><label for="plantaInformacion">Planta: </label></td>
+                    <td>
+                        <input
+                            type="text"
+                            name="planta"
+                            id="plantaInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="puertaInformacion">Puerta: </label></td>
+                    <td>
+                        <input
+                            type="text"
+                            name="puerta"
+                            id="puertaInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="propietarioInformacion"
+                            >Propietario:
+                        </label>
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="propietario"
+                            id="propietarioInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="addInformacion">Modificar</button></td>
+                </tr>
+            </table>
+        </form>
+        <form action="">
+            <h2>Mostrar edificio</h2>
+            <hr />
+            <label for="selectEdificios">Seleciona una dirección: </label>
+            <select name="direcciones" id="selectEdificios"></select>
+            <h3>Información a añadir</h3>
+            <table>
+                <tr>
+                    <td><label for="plantaInformacion">Planta: </label></td>
+                    <td>
+                        <input
+                            type="text"
+                            name="planta"
+                            id="plantaInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="puertaInformacion">Puerta: </label></td>
+                    <td>
+                        <input
+                            type="text"
+                            name="puerta"
+                            id="puertaInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="propietarioInformacion"
+                            >Propietario:
+                        </label>
+                    </td>
+                    <td>
+                        <input
+                            type="text"
+                            name="propietario"
+                            id="propietarioInformacion"
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button id="addInformacion">Modificar</button></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
