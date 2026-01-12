@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tablero de Dibujo</title>
+    <style>body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/* Estilos de la tabla de dibujo */
+#zonadibujo table {
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: 1px solid #000;
+}
+
+#zonadibujo td {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ddd; /* Borde suave para ver la rejilla */
+    cursor: crosshair;
+}
+
+/* Estilos de la paleta */
+#paleta {
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 5px;
+}
+
+#paleta td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #000;
+    cursor: pointer;
+}
+
+/* Estado del pincel */
+#mensaje-estado {
+    margin-top: 10px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Clase para indicar qué color está seleccionado en la paleta */
+.seleccionado {
+    border: 3px solid black !important;
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* COLORES (Si cambias estos, el JS sigue funcionando) */
+.color1 { background-color: #FF0000; } /* Rojo */
+.color2 { background-color: #00FF00; } /* Verde */
+.color3 { background-color: #0000FF; } /* Azul */
+.color4 { background-color: #FFFF00; } /* Amarillo */
+.color5 { background-color: #000000; } /* Negro */
+.color6 { background-color: #FFFFFF; } /* Blanco (Goma) */</style>
+</head>
+<body>
+
+    <h1>Tablero de Dibujo</h1>
+
+    <div class="contenedor-paleta">
+        <h3>Paleta de Colores</h3>
+        <table id="paleta">
+            <tr>
+                <td class="color1"></td>
+                <td class="color2"></td>
+                <td class="color3"></td>
+                <td class="color4"></td>
+                <td class="color5"></td>
+                <td class="color6"></td> </tr>
+        </table>
+        <div id="mensaje-estado">PINCEL DESACTIVADO</div>
+    </div>
+
+    <hr>
+
+    <h3>Zona de Dibujo</h3>
+    <div id="zonadibujo"></div>
+
+    <script src="Tarea.js"></script>
+</body>
+</html>
