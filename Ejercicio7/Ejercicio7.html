@@ -56,7 +56,9 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button type="button" id="crearEdificio">Crear</button></td>
+                    <td>
+                        <button type="button" id="crearEdificio">Crear</button>
+                    </td>
                 </tr>
             </table>
         </form>
@@ -103,56 +105,43 @@
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button id="addInformacion">Modificar</button></td>
+                    <td>
+                        <button type="button" id="addInformacion">
+                            Modificar
+                        </button>
+                    </td>
                 </tr>
             </table>
         </form>
         <form action="">
             <h2>Mostrar edificio</h2>
             <hr />
-            <label for="selectEdificios">Seleciona una dirección: </label>
-            <select name="direcciones" id="selectEdificios"></select>
-            <h3>Información a añadir</h3>
             <table>
                 <tr>
-                    <td><label for="plantaInformacion">Planta: </label></td>
                     <td>
-                        <input
-                            type="text"
-                            name="planta"
-                            id="plantaInformacion"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td><label for="puertaInformacion">Puerta: </label></td>
-                    <td>
-                        <input
-                            type="text"
-                            name="puerta"
-                            id="puertaInformacion"
-                        />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label for="propietarioInformacion"
-                            >Propietario:
+                        <label for="selectEdificios"
+                            >Seleciona una dirección:
                         </label>
                     </td>
                     <td>
-                        <input
-                            type="text"
-                            name="propietario"
-                            id="propietarioInformacion"
-                        />
+                        <select
+                            name="direcciones"
+                            id="selectEdificios"
+                        ></select>
                     </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td><button id="addInformacion">Modificar</button></td>
+                    <td>
+                        <button type="button" id="mostrarEdificio">
+                            Mostrar
+                        </button>
+                    </td>
                 </tr>
             </table>
+            <table>
+            </table>
+            <div id="tabla"></div>
         </form>
     </body>
 </html>
